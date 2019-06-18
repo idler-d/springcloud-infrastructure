@@ -11,6 +11,7 @@
     <modules>
         <module>exception-spring-boot-starter</module>
         <module>commons</module>
+        <module>myjwt-spring-boot-starter</module>
     </modules>
 
     <properties>

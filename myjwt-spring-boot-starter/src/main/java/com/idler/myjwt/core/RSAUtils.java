@@ -1,27 +1,37 @@
-package com.idler.demo.commons.codec;
+package com.idler.myjwt.core;
 
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class RSAUtils {
 
   private static final String ALGORITHM = "RSA";
 
-  public static Key base64EncodedKeyStrToKey(String key) throws InvalidKeySpecException {
-
+  public static Key getPublicKey(String publicKey) throws InvalidKeySpecException {
     try {
-      byte[] publicKey = Base64.getDecoder().decode(key);
-      PKCS8EncodedKeySpec x509KeySpec = new PKCS8EncodedKeySpec(publicKey);
-      KeyFactory keyFactory = null;
-      keyFactory = KeyFactory.getInstance(ALGORITHM);
-      return keyFactory.generatePrivate(x509KeySpec);
+      return KeyFactory.getInstance(ALGORITHM).generatePublic(
+          new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey)));
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
+      return null;
     }
-    return null;
+
   }
+
+  public static Key getPrivateKey(String privateKey) throws InvalidKeySpecException {
+    try {
+      return KeyFactory.getInstance(ALGORITHM).generatePrivate(
+          new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+
 
   public static KeyPair generatorKeyPair(int size) {
 

@@ -1,10 +1,13 @@
 package com.idler.demo.commons.codec;
 
 import org.apache.commons.lang3.StringUtils;
+import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * 摘要相关类型的方法
@@ -32,5 +35,14 @@ public class CodecUtils {
     return md5Hex(content, null, null);
   }
 
+  public static String createSalt() {
+    Random RANDOM = new SecureRandom();
+    byte[] salt = new byte[10];
+    RANDOM.nextBytes(salt);
+    return new BASE64Encoder().encode(salt);
+  }
 
+  public static void main(String[] args) {
+    System.out.println(createSalt());
+  }
 }
