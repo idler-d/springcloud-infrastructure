@@ -12,7 +12,7 @@ test-tmp
 .classpath
 .project
 .settings
-.iml
+*.iml
 
 # Mac General
 .DS_Store
